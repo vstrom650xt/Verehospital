@@ -1,0 +1,23 @@
+--paciente
+{
+   "_idPaciente":"",
+    "nombre":"",
+    "edad":"",
+     "direccion":"",
+    "dolencia:[{
+        "_idDoctor":"",
+        "nombre":"",
+         "pruebas":[{
+              "tipo":"",
+               "precio":""
+         }]
+     }]
+}
+--doctor
+{
+    "_idDoctor":"",
+    "numeroColegiado":"",
+    "nombre":"",
+    "especialidad":""
+
+}
