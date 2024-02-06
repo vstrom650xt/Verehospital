@@ -60,24 +60,21 @@ public class LDoctor {
 
 
 
-    public void deleteMedico(MongoCollection<Document> collection, int id) {
-//        MongoCursor<Document> cursor = collection.find(Filters.eq("_idDoctor", id)).iterator();
-//        while (cursor.hasNext()) {
-//            Document document = cursor.next();
-//            System.out.println("Deleting document: " + document.toJson());
-//
-//            collection.deleteOne(Filters.eq("_idDoctor", document.getObjectId(id)));
-//        }
-//
-//        cursor.close();
+    public void deleteMedico(MongoCollection<Document> collection, String idDoctor) {
+        MongoCursor<Document> cursor = collection.find(Filters.eq("_idDoctor", idDoctor)).iterator();
+        try {
+            while (cursor.hasNext()) {
+                Document document = cursor.next();
+                System.out.println("Deleting document: " + document.toJson());
 
-        Bson filter = Filters.eq("_idDoctor",id);
-        FindIterable<Document> elementosEncon = collection.find(filter);
-        elementosEncon.forEach(document -> System.out.println(document));
-        System.out.println(elementosEncon.toString());
-
-
+                // Elimina el documento basado en el campo _idDoctor
+                collection.deleteOne(Filters.eq("_idDoctor", idDoctor));
+            }
+        } finally {
+            cursor.close();
+        }
     }
+
 
 
     public void findMedico(MongoCollection<Document> collection, int id) {
@@ -90,5 +87,25 @@ public class LDoctor {
         cursor.close();
     }
 
+    public void verTodosLosMedicos(MongoCollection<Document> collection) {
+        MongoCursor<Document> cursor = collection.find().iterator();
+        try {
+            while (cursor.hasNext()) {
+                Document medico = cursor.next();
+                System.out.println("Médico: " + medico.toJson());
+            }
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public void verMedicoPorId(MongoCollection<Document> collection, String idDoctor) {
+        Document medico = collection.find(Filters.eq("_idDoctor", idDoctor)).first();
+        if (medico != null) {
+            System.out.println("Médico encontrado: " + medico.toJson());
+        } else {
+            System.out.println("No se encontró ningún médico con el ID: " + idDoctor);
+        }
+    }
 
 }

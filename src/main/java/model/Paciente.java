@@ -9,8 +9,18 @@ public class Paciente {
   private String nombre;
   private int edad;
   private String direccion;
+  private int idDoctor;
   private List<Dolencia> dolenciaList = new ArrayList<>();
 
+
+  public Paciente(int idPaciente, String nombre, int edad, String direccion, int idDoctor, List<Dolencia> dolenciaList) {
+    this.idPaciente = idPaciente;
+    this.nombre = nombre;
+    this.edad = edad;
+    this.direccion = direccion;
+    this.idDoctor = idDoctor;
+    this.dolenciaList = dolenciaList;
+  }
 
   public int getIdPaciente() {
     return idPaciente;
@@ -50,6 +60,14 @@ public class Paciente {
 
   public void setDolenciaList(List<Dolencia> dolenciaList) {
     this.dolenciaList = dolenciaList;
+  }
+
+  public int getIdDoctor() {
+    return idDoctor;
+  }
+
+  public void setIdDoctor(int idDoctor) {
+    this.idDoctor = idDoctor;
   }
 
   @Override

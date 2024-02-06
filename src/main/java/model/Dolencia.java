@@ -8,6 +8,12 @@ public class Dolencia {
     private String nombre;
     private List<Prueba> pruebaList = new ArrayList<>();
 
+    public Dolencia(int idDoctor, String nombre, List<Prueba> pruebaList) {
+        this.idDoctor = idDoctor;
+        this.nombre = nombre;
+        this.pruebaList = pruebaList;
+    }
+
     public int getIdDoctor() {
         return idDoctor;
     }
