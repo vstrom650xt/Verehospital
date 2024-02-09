@@ -2,30 +2,29 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Paciente {
-  private int idPaciente;
+  private String _idPaciente;
   private String nombre;
   private int edad;
   private String direccion;
   private List<Dolencia> dolenciaList = new ArrayList<>();
 
 
-  public Paciente(int idPaciente, String nombre, int edad, String direccion,  List<Dolencia> dolenciaList) {
-    this.idPaciente = idPaciente;
+  public Paciente(String _idPaciente, String nombre, int edad, String direccion, List<Dolencia> dolenciaList) {
+    this._idPaciente = _idPaciente;
     this.nombre = nombre;
     this.edad = edad;
     this.direccion = direccion;
     this.dolenciaList = dolenciaList;
   }
 
-  public int getIdPaciente() {
-    return idPaciente;
+  public String get_idPaciente() {
+    return _idPaciente;
   }
 
-  public void setIdPaciente(int idPaciente) {
-    this.idPaciente = idPaciente;
+  public void set_idPaciente(String _idPaciente) {
+    this._idPaciente = _idPaciente;
   }
 
   public String getNombre() {
@@ -64,7 +63,7 @@ public class Paciente {
   @Override
   public String toString() {
     return "Paciente{" +
-            "idPaciente=" + idPaciente +
+            "idPaciente=" + _idPaciente +
             ", nombre='" + nombre + '\'' +
             ", edad=" + edad +
             ", direccion='" + direccion + '\'' +

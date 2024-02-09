@@ -9,48 +9,50 @@ import logic.LMedico;
 import logic.LPaciente;
 import org.bson.Document;
 
+import java.util.Scanner;
+
 /**
  * Hello world!
- *
  */
-public class App{
-    public static void main( String[] args ){
+public class App {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
         try {
             ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017");
             MongoClient mongoClient = MongoClients.create(connectionString);
             MongoDatabase database = mongoClient.getDatabase("verehospital");
-            MongoCollection<Document> collectionMedico = database.getCollection("medic o");
+            MongoCollection<Document> collectionMedico = database.getCollection("medico");
 //
-            LMedico a = new LMedico();
-      //    a.addMedico(collectionMedico);
+//            LMedico a = new LMedico();
+////          a.addMedico(collectionMedico);   //OK
+////               a.deleterMedico(collectionMedico,"1");  //OK
+////            a.verTodosLosMedicos(collectionMedico); //OK
+//                //a.findMedico(collectionMedico,"1");
+//             System.out.println("Introduce los nuevos datos:");
+//            System.out.println("Número de colegiado:");
+//            String nuevoNumeroColegiado = sc.next();
+//            System.out.println("Nombre:");
+//            String nuevoNombre = sc.next();
+//            System.out.println("Especialidad:");
+//            String nuevaEspecialidad = sc.next();
+//            a.updateDoctor(collectionMedico,"1",nuevaEspecialidad,nuevoNombre,nuevoNumeroColegiado); //OK
 
-
-           // a.deleterMedico(collectionMedico,"pp");
-//a.verTodosLosMedicos(collectionMedico);
-         // a.verMedicoPorId(collectionMedico,"1");
-      //      a.deleteMedico(collectionMedico,"pp");
-
-
-
-                 MongoCollection<Document> collectionPaciente= database.getCollection("paciente");
+                MongoCollection<Document> collectionPaciente= database.getCollection("paciente");
 
             LPaciente paciente = new LPaciente();
-   //        paciente.addPaciente(collectionPaciente);
-            paciente.borrarPaciente(collectionPaciente,"2");
-          //  paciente.actualizarPaciente(collectionMedico,1,"1123123",3,"advvd");
+                    paciente.addPaciente(collectionPaciente); //ok
+              //paciente.borrarPaciente(collectionPaciente,"1");
+              paciente.verPacientePorId(collectionPaciente,"1");
+            //  paciente.actualizarPaciente(collectionMedico,1,"1123123",3,"advvd");
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-
-
-
-
-
-
     }
 }
+
+

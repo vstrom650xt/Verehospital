@@ -1,14 +1,15 @@
 package model;
 
 public class Prueba {
+    private  String tipo;
+    private String precio;
 
-    public Prueba(String tipo, int precio) {
+    public Prueba(String tipo, String precio) {
         this.tipo = tipo;
         this.precio = precio;
     }
 
-    private String tipo;
-    private  int precio;
+
 
     public String getTipo() {
         return tipo;
@@ -18,11 +19,11 @@ public class Prueba {
         this.tipo = tipo;
     }
 
-    public int getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 

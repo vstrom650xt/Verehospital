@@ -3,7 +3,7 @@
    "_idPaciente":"",
     "nombre":"",
     "edad":"",
-     "direccion":"",
+    "direccion":"",
     "dolencia:[{
         "_idDoctor":"",
         "nombre":"",

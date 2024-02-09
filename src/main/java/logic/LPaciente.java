@@ -2,12 +2,15 @@ package logic;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.result.DeleteResult;
 import model.Dolencia;
 import model.Paciente;
 import model.Prueba;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +25,15 @@ public class LPaciente {
 
         List<Dolencia> dolenciaList = new ArrayList<>();
         List<Prueba> pruebaList = new ArrayList<>();
-        int _idPaciente = 2;
+        String _idPaciente = "1";
         String nombre = "pp";
         int edad = 30;
         String direccion = "Calle amargura 123";
-        pruebaList.add(new Prueba("una placa",100));
-
-
-        dolenciaList.add(new Dolencia(1, "dolor", pruebaList));
-
-
+        pruebaList.add(new Prueba("una placa","100"));
+        dolenciaList.add(new Dolencia("1", "dolor", pruebaList));
 
         Paciente paciente = new Paciente(_idPaciente,nombre,edad,direccion,dolenciaList);
-        Document pacienteDocument = new Document();
+
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
         try {
@@ -42,7 +41,7 @@ public class LPaciente {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        pacienteDocument = Document.parse(json); /////////// GUARDAR DOCUMENTO NO STRING
+        Document   pacienteDocument = Document.parse(json); /////////// GUARDAR DOCUMENTO NO STRING
         collection.insertOne(pacienteDocument);
 
 
@@ -50,8 +49,15 @@ public class LPaciente {
 
     }
 
-    public void borrarPaciente(MongoCollection<Document> collection, String idPaciente) {
-        collection.deleteOne(eq("_idPaciente", idPaciente));
+    public void borrarPaciente(MongoCollection<Document> collection, String _idPaciente) {
+        Bson query = eq("_idPaciente", _idPaciente);
+
+        try {
+            DeleteResult result = collection.deleteOne(query);
+            System.out.println("Deleted document count: " + result.getDeletedCount());
+        } catch (MongoException me) {
+            System.err.println("Unable to delete due to an error: " + me);
+        }
     }
     public void verTodosLosPacientes(MongoCollection<Document> collection) {
         MongoCursor<Document> cursor = collection.find().iterator();
@@ -65,7 +71,7 @@ public class LPaciente {
         }
     }
 
-    public void verPacientePorId(MongoCollection<Document> collection, int idPaciente) {
+    public void verPacientePorId(MongoCollection<Document> collection, String idPaciente) {
         Document paciente = collection.find(eq("_idPaciente", idPaciente)).first();
         if (paciente != null) {
             System.out.println("Paciente encontrado: " + paciente.toJson());
