@@ -1,6 +1,12 @@
 package model;
 
 public class Prueba {
+
+    public Prueba(String tipo, int precio) {
+        this.tipo = tipo;
+        this.precio = precio;
+    }
+
     private String tipo;
     private  int precio;
 

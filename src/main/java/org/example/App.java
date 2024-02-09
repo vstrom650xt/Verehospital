@@ -5,7 +5,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import logic.LDoctor;
+import logic.LMedico;
 import logic.LPaciente;
 import org.bson.Document;
 
@@ -20,18 +20,26 @@ public class App{
             ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017");
             MongoClient mongoClient = MongoClients.create(connectionString);
             MongoDatabase database = mongoClient.getDatabase("verehospital");
-            MongoCollection<Document> collectionMedico = database.getCollection("medico");
-            MongoCollection<Document> collectionPaciente= database.getCollection("paciente");
+            MongoCollection<Document> collectionMedico = database.getCollection("medic o");
+//
+            LMedico a = new LMedico();
+      //    a.addMedico(collectionMedico);
 
-            LDoctor a = new LDoctor();
+
+           // a.deleterMedico(collectionMedico,"pp");
+//a.verTodosLosMedicos(collectionMedico);
+         // a.verMedicoPorId(collectionMedico,"1");
+      //      a.deleteMedico(collectionMedico,"pp");
+
+
+
+                 MongoCollection<Document> collectionPaciente= database.getCollection("paciente");
+
             LPaciente paciente = new LPaciente();
-         //   paciente.addPaciente(collectionPaciente);
-            paciente.borrarPaciente(collectionPaciente,"65c2691e8ecac36f81b5f000");
-            paciente.actualizarPaciente(collectionMedico,1,"1123123",3,"advvd");
-//            a.addMedico(collectionMedico);
-   //         a.deleteMedico(collectionMedico,"1");
-            //a.verTodosLosMedicos(collectionMedico);
-            //a.verMedicoPorId(collectionMedico,"1");
+   //        paciente.addPaciente(collectionPaciente);
+            paciente.borrarPaciente(collectionPaciente,"2");
+          //  paciente.actualizarPaciente(collectionMedico,1,"1123123",3,"advvd");
+
 
         }catch (Exception e){
             e.printStackTrace();

@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import model.Dolencia;
 import model.Paciente;
+import model.Prueba;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -20,13 +21,19 @@ public class LPaciente {
     public void addPaciente(MongoCollection<Document> collection){
 
         List<Dolencia> dolenciaList = new ArrayList<>();
-        int _idPaciente = 1;
+        List<Prueba> pruebaList = new ArrayList<>();
+        int _idPaciente = 2;
         String nombre = "pp";
         int edad = 30;
-        int idDoctor = 1;
         String direccion = "Calle amargura 123";
+        pruebaList.add(new Prueba("una placa",100));
 
-        Paciente paciente = new Paciente(_idPaciente,nombre,edad,direccion,idDoctor,dolenciaList);
+
+        dolenciaList.add(new Dolencia(1, "dolor", pruebaList));
+
+
+
+        Paciente paciente = new Paciente(_idPaciente,nombre,edad,direccion,dolenciaList);
         Document pacienteDocument = new Document();
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
@@ -35,7 +42,7 @@ public class LPaciente {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        pacienteDocument.append("paciente",json);
+        pacienteDocument = Document.parse(json); /////////// GUARDAR DOCUMENTO NO STRING
         collection.insertOne(pacienteDocument);
 
 
@@ -45,7 +52,6 @@ public class LPaciente {
 
     public void borrarPaciente(MongoCollection<Document> collection, String idPaciente) {
         collection.deleteOne(eq("_idPaciente", idPaciente));
-        System.out.println("Paciente con ID " + idPaciente + " eliminado correctamente.");
     }
     public void verTodosLosPacientes(MongoCollection<Document> collection) {
         MongoCursor<Document> cursor = collection.find().iterator();
@@ -69,19 +75,15 @@ public class LPaciente {
     }
 
     public void actualizarPaciente(MongoCollection<Document> collection, int idPaciente, String nuevoNombre, int nuevaEdad, String nuevaDireccion) {
-        // Crea un filtro para encontrar el paciente por su ID
         Document filtro = new Document("_idPaciente", idPaciente);
 
-        // Crea una actualización con los nuevos datos
         Document actualizacion = new Document("$set", new Document()
                 .append("nombre", nuevoNombre)
                 .append("edad", nuevaEdad)
                 .append("direccion", nuevaDireccion));
 
-        // Actualiza el paciente en la colección
         collection.updateOne(filtro, actualizacion);
 
-        System.out.println("Paciente con ID " + idPaciente + " actualizado correctamente.");
     }
 
 }

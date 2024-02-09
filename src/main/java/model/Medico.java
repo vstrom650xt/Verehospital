@@ -1,23 +1,23 @@
 package model;
 
-public class Doctor {
-    private int _idDoctor;
+public class Medico {
+    private String _idDoctor;
     private int numeroColegiado;
     private String nombre;
     private String especialidad;
 
-    public Doctor(int _idDoctor, int numeroColegiado, String nombre, String especialidad) {
+    public Medico(String _idDoctor, int numeroColegiado, String nombre, String especialidad) {
         this._idDoctor = _idDoctor;
         this.numeroColegiado = numeroColegiado;
         this.nombre = nombre;
         this.especialidad = especialidad;
     }
 
-    public int get_idDoctor() {
+    public String get_idDoctor() {
         return _idDoctor;
     }
 
-    public void set_idDoctor(int _idDoctor) {
+    public void set_idDoctor(String _idDoctor) {
         this._idDoctor = _idDoctor;
     }
 
