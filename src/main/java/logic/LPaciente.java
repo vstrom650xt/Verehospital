@@ -3,6 +3,7 @@ package logic;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoException;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.result.DeleteResult;
@@ -11,6 +12,7 @@ import model.Paciente;
 import model.Prueba;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import util.IdTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,20 +21,9 @@ import java.util.Scanner;
 import static com.mongodb.client.model.Filters.eq;
 
 public class LPaciente {
-    Scanner sc = new Scanner(System.in);
 
-    public void addPaciente(MongoCollection<Document> collection){
+    public void addPaciente(MongoCollection<Document> collection,Paciente paciente ){
 
-        List<Dolencia> dolenciaList = new ArrayList<>();
-        List<Prueba> pruebaList = new ArrayList<>();
-        String _idPaciente = "1";
-        String nombre = "pp";
-        int edad = 30;
-        String direccion = "Calle amargura 123";
-        pruebaList.add(new Prueba("una placa","100"));
-        dolenciaList.add(new Dolencia("1", "dolor", pruebaList));
-
-        Paciente paciente = new Paciente(_idPaciente,nombre,edad,direccion,dolenciaList);
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
@@ -91,5 +82,7 @@ public class LPaciente {
         collection.updateOne(filtro, actualizacion);
 
     }
+
+
 
 }

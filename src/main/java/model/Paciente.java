@@ -19,6 +19,13 @@ public class Paciente {
     this.dolenciaList = dolenciaList;
   }
 
+  public Paciente(String _idPaciente, String nombre, int edad, String direccion) {
+    this._idPaciente = _idPaciente;
+    this.nombre = nombre;
+    this.edad = edad;
+    this.direccion = direccion;
+  }
+
   public String get_idPaciente() {
     return _idPaciente;
   }

@@ -10,6 +10,7 @@ import com.mongodb.client.result.UpdateResult;
 import model.Medico;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import util.IdTool;
 
 import java.util.Scanner;
 
@@ -19,21 +20,10 @@ import static com.mongodb.client.model.Updates.set;
 public class LMedico {
     Scanner sc = new Scanner(System.in);
 
-    public void addMedico(MongoCollection<Document> collection) {
-        String id;
-        int numeroColegiado;
-        String nombre;
-        String especialidad;
-        System.out.println("id");
-        id = sc.next();
-        System.out.println("numeroColegiado");
-        numeroColegiado = sc.nextInt();
-        System.out.println("nombre");
-        nombre = sc.next();
-        System.out.println("especialidad");
-        especialidad = sc.next();
+    public void addMedico(MongoCollection<Document> collection, int numeroColegiado , String nombre , String especialidad) {
 
-        Medico doctor = new Medico(id, numeroColegiado, nombre, especialidad);
+
+        Medico doctor = new Medico(IdTool.getCodigoMedico(collection), numeroColegiado, nombre, especialidad);
         Document doctorDocument;
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
